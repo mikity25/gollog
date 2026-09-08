@@ -42,7 +42,7 @@ gem "bootsnap", require: false
 gem "thruster", require: false
 
 # 画像処理（Active Storage用）
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.1"
 
 # 開発環境およびテスト環境でのみ使用するGem
 group :development, :test do
