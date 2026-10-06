@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # Deviseのルーティング（ログイン・新規登録など）
-  devise_for :users
+  devise_for :users, controllers: {
+  registrations: "users/registrations"
+  }
 
   # ゲストログイン用
   post "guest_sign_in", to: "users/guest_sessions#create"
