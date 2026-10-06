@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   # Deviseのルーティング（ログイン・新規登録など）
   devise_for :users
 
+  # ゲストログイン用
+  post "guest_sign_in", to: "users/guest_sessions#create"
+
   # アプリのルートURL（ / ）にアクセスした際、StaticPagesController の top アクションを表示する
   root "static_pages#top"
 
