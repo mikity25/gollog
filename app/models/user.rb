@@ -10,8 +10,9 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64(16)
       user.name = "ゲストゴルファー"
     end.tap do |user|
-      # ゲストのカルテが0件の場合のみ、初期サンプルデータを自動作成する
-      user.create_sample_records if user.records.empty?
+      # 毎回ログイン時にカルテをリセットして綺麗な5件を作り直す場合
+      user.records.destroy_all
+      user.create_sample_records
     end
   end
 

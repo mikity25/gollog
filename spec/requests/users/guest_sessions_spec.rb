@@ -7,19 +7,21 @@ RSpec.describe "Users::GuestSessions", type: :request do
       expect(response).to redirect_to(records_path).or redirect_to(root_path)
     end
 
-    it "初回ログイン時に初期カルテが作成されること" do
+    it "ログイン時にサンプルカルテが5件作成されること" do
       expect {
         post guest_sign_in_path
-      }.to change(Record, :count).by_at_least(1)
+      }.to change(Record, :count).by(5)
     end
 
-    it "すでにカルテが存在する場合は重複して増えないこと" do
+    it "既存のカルテを変更・削除して再ログインした場合でも、常に5件にリフレッシュされること" do
       post guest_sign_in_path
-      delete destroy_user_session_path # ログアウト
+      guest_user = User.find_by(email: "guest@example.com")
+      guest_user.records.first.destroy # 1件削除して4件にする
+      expect(guest_user.records.count).to eq(4)
 
-      expect {
-        post guest_sign_in_path
-      }.not_to change(Record, :count)
+      # 再度ゲストログインを実行
+      post guest_sign_in_path
+      expect(guest_user.records.reload.count).to eq(5)
     end
   end
 end
