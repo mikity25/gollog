@@ -36,6 +36,10 @@
         <%= link_to "カルテ一覧を見る", records_path, style: "background-color: #2d6a4f; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25); min-width: 180px;" %>
         <%= link_to "+ 新規カルテ作成", new_record_path, style: "background-color: #ffffff; color: #2d6a4f; border: 2px solid #2d6a4f; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; min-width: 180px;" %>
       <% else %>
+        <!-- ワンクリックゲストログインボタン -->
+        <%= button_to guest_sign_in_path, method: :post, style: "background-color: #d97706; color: #ffffff; border: none; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25); min-width: 200px; display: inline-flex; align-items: center; justify-content: center;" do %>
+          <span style="margin-right: 6px;"></span> おためしゲストログイン
+        <% end %>
         <%= link_to "無料ではじめる（新規登録）", new_user_registration_path, style: "background-color: #2d6a4f; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25); min-width: 200px;" %>
         <%= link_to "ログイン", new_user_session_path, style: "background-color: #ffffff; color: #2d6a4f; border: 2px solid #2d6a4f; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; min-width: 120px;" %>
       <% end %>
