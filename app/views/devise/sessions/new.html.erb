@@ -30,6 +30,12 @@
     </div>
   <% end %>
 
+  <div style="text-align: center; margin-top: 14px;">
+    <%= button_to guest_sign_in_path, method: :post, style: "background: none; border: none; padding: 0; font-size: 13px; color: #2d6a4f; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;" do %>
+      <span style="margin-right: 4px;"></span> まずはお試ししてみたい方はこちら（ゲストログイン）
+    <% end %>
+  </div>
+
   <div style="text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #edf2f7; font-size: 13px;">
     <%= link_to "アカウントをお持ちでない方はこちら（新規登録）", new_registration_path(resource_name), style: "color: #2d6a4f; text-decoration: none; font-weight: bold;" %>
   </div>
