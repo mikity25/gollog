@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   # アプリのルートURL（ / ）にアクセスした際、StaticPagesController の top アクションを表示する
   root "static_pages#top"
 
+  # 静的ページ
+  get "terms", to: "static_pages#terms"
+  get "privacy", to: "static_pages#privacy"
+
   # カルテの一覧・作成画面・保存処理の道を開通
   resources :records, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
 
