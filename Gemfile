@@ -84,3 +84,7 @@ group :test do
   # テストカバレッジ測定ツール
   gem "simplecov", require: false
 end
+
+# 本番エラー監視ツール（Sentry）
+gem "sentry-ruby"
+gem "sentry-rails"
