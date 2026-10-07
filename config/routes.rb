@@ -25,6 +25,4 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
-  # Sentry動作確認用テストルーティング（確認後に削除）
-  get "/sentry_test", to: proc { raise "本番エラー監視テスト（Sentry検知確認）" }
 end
