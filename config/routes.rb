@@ -24,4 +24,11 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  # ゴルフ場オートコンプリート検索用エンドポイント
+  resources :golf_courses, only: [] do
+    collection do
+      get :search
+    end
+  end
 end
