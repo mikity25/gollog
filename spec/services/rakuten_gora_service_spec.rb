@@ -29,7 +29,7 @@ RSpec.describe RakutenGoraService, type: :service do
         allow(service).to receive(:fetch_from_api).and_return(dummy_response)
 
         result = service.search_golf_courses
-        expect(result).to eq ["富士カントリークラブ", "富士笠間ゴルフ倶楽部"]
+        expect(result).to eq [ "富士カントリークラブ", "富士笠間ゴルフ倶楽部" ]
       end
 
       it "通信エラーや予期せぬ例外が発生したとき、アプリを落とさず空の配列を返すこと（フォールバック）" do
