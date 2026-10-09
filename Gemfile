@@ -7,7 +7,7 @@ gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 gem "propshaft"
 
 # データベース（PostgreSQL）用接続ライブラリ
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.7"
 
 # Webサーバー（Puma）
 gem "puma", ">= 5.0"
