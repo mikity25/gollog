@@ -79,4 +79,77 @@ RSpec.describe Record, type: :model do
       end
     end
   end
+
+  describe '検索およびソート用スコープのテスト' do
+    let(:user) { create(:user) }
+
+    describe '.search_by_keyword' do
+      let!(:record1) { create(:record, user: user, golf_course_name: '富士カントリークラブ', companion: '友人', memo: '楽しかった', played_on: Date.new(2026, 5, 1)) }
+      let!(:record2) { create(:record, user: user, golf_course_name: '箱根ゴルフ場', companion: '上司', memo: '富士山が見えた', played_on: Date.new(2026, 5, 2)) }
+      let!(:record3) { create(:record, user: user, golf_course_name: '軽井沢高原ゴルフ', companion: 'ソロ', memo: '避暑地ラウンド', played_on: Date.new(2026, 5, 3)) }
+
+      it 'ゴルフ場名で部分一致検索できること' do
+        expect(described_class.search_by_keyword('富士')).to contain_exactly(record1, record2)
+      end
+
+      it '同伴者名で部分一致検索できること' do
+        expect(described_class.search_by_keyword('上司')).to contain_exactly(record2)
+      end
+
+      it 'メモの内容で部分一致検索できること' do
+        expect(described_class.search_by_keyword('避暑地')).to contain_exactly(record3)
+      end
+
+      it 'キーワードが空（nilまたは空文字）の場合は全件返すこと' do
+        expect(described_class.search_by_keyword('')).to contain_exactly(record1, record2, record3)
+        expect(described_class.search_by_keyword(nil)).to contain_exactly(record1, record2, record3)
+      end
+    end
+
+    describe '.sorted_by' do
+      let!(:record_old_low) do
+        create(:record, user: user, golf_course_name: 'コースA', played_on: Date.new(2026, 1, 1),
+                        satisfaction: :star1, score_18h: 110, total_cost: 15_000)
+      end
+      let!(:record_new_high) do
+        create(:record, user: user, golf_course_name: 'コースB', played_on: Date.new(2026, 3, 1),
+                        satisfaction: :star5, score_18h: 88, total_cost: 9_000)
+      end
+      let!(:record_no_score_cost) do
+        create(:record, user: user, golf_course_name: 'コースC', played_on: Date.new(2026, 2, 1),
+                        satisfaction: :star3, score_18h: nil, converted_score_18h: nil, total_cost: nil)
+      end
+
+      it 'played_on_asc でプレー日が古い順に並び替わること' do
+        expect(described_class.sorted_by('played_on_asc')).to eq([record_old_low, record_no_score_cost, record_new_high])
+      end
+
+      it 'satisfaction_desc で満足度が高い順に並び替わること' do
+        expect(described_class.sorted_by('satisfaction_desc')).to eq([record_new_high, record_no_score_cost, record_old_low])
+      end
+
+      it 'score_asc でスコアが良い順に並び、未入力レコードは除外されること' do
+        results = described_class.sorted_by('score_asc')
+        expect(results).to eq([record_new_high, record_old_low])
+        expect(results).not_to include(record_no_score_cost)
+      end
+
+      it 'cost_asc で料金が安い順に並び、未入力レコードは除外されること' do
+        results = described_class.sorted_by('cost_asc')
+        expect(results).to eq([record_new_high, record_old_low])
+        expect(results).not_to include(record_no_score_cost)
+      end
+
+      it 'cost_desc で料金が高い順に並び、未入力レコードは除外されること' do
+        results = described_class.sorted_by('cost_desc')
+        expect(results).to eq([record_old_low, record_new_high])
+        expect(results).not_to include(record_no_score_cost)
+      end
+
+      it '指定なし（デフォルト）でプレー日が新しい順に全件並び替わること' do
+        expect(described_class.sorted_by(nil)).to eq([record_new_high, record_no_score_cost, record_old_low])
+      end
+    end
+  end
+
 end
