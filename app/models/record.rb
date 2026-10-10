@@ -35,6 +35,40 @@ class Record < ApplicationRecord
   # コールバック：保存前に9Hスコアから18H換算目安を自動計算
   before_save :calculate_converted_score_18h
 
+# ==================== スコープ（検索・ソート） ====================
+  # ゴルフ場名・同伴者・メモのキーワードあいまい検索
+  scope :search_by_keyword, ->(keyword) {
+    if keyword.present?
+      sanitized_keyword = "%#{sanitize_sql_like(keyword)}%"
+      where("golf_course_name ILIKE :kw OR companion ILIKE :kw OR memo ILIKE :kw", kw: sanitized_keyword)
+    end
+  }
+
+  # 並び替え（ソート）
+  scope :sorted_by, ->(sort_key) {
+    case sort_key
+    when "played_on_asc"
+      order(played_on: :asc, created_at: :asc)
+    when "satisfaction_desc"
+      order(satisfaction: :desc, played_on: :desc)
+    when "satisfaction_asc"
+      order(satisfaction: :asc, played_on: :desc)
+    when "score_asc"
+      # スコアが入力されているものだけに絞り込み、打数が少ない順に並べる
+      where.not(score_18h: nil).or(where.not(converted_score_18h: nil))
+        .order(Arel.sql("COALESCE(score_18h, converted_score_18h) ASC, played_on DESC"))
+    when "cost_asc"
+      # 料金が入力されているものだけに絞り込み、安い順に並べる
+      where.not(total_cost: nil).order(total_cost: :asc, played_on: :desc)
+    when "cost_desc"
+      # 料金が入力されているものだけに絞り込み、高い順に並べる
+      where.not(total_cost: nil).order(total_cost: :desc, played_on: :desc)
+    else
+      # デフォルト：プレー日が新しい順（全件表示）
+      order(played_on: :desc, created_at: :desc)
+    end
+  }
+
   private
 
   # スコア排他制御
