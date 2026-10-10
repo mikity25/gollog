@@ -4,9 +4,11 @@ class RecordsController < ApplicationController
   # 指定アクションの実行前に対象のカルテを取得して @record にセット
   before_action :set_record, only: %i[show edit update destroy]
 
-  # カルテ一覧表示（プレー日の降順で取得）
+# カルテ一覧表示（キーワード検索およびソートを適用）
   def index
-    @records = current_user.records.order(played_on: :desc)
+    @records = current_user.records
+                           .search_by_keyword(params[:keyword])
+                           .sorted_by(params[:sort])
   end
 
   # カルテ詳細表示（set_record で取得した @record を表示）
