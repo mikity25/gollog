@@ -121,35 +121,34 @@ RSpec.describe Record, type: :model do
       end
 
       it 'played_on_asc でプレー日が古い順に並び替わること' do
-        expect(described_class.sorted_by('played_on_asc')).to eq([record_old_low, record_no_score_cost, record_new_high])
+        expect(described_class.sorted_by('played_on_asc')).to eq([ record_old_low, record_no_score_cost, record_new_high ])
       end
 
       it 'satisfaction_desc で満足度が高い順に並び替わること' do
-        expect(described_class.sorted_by('satisfaction_desc')).to eq([record_new_high, record_no_score_cost, record_old_low])
+        expect(described_class.sorted_by('satisfaction_desc')).to eq([ record_new_high, record_no_score_cost, record_old_low ])
       end
 
       it 'score_asc でスコアが良い順に並び、未入力レコードは除外されること' do
         results = described_class.sorted_by('score_asc')
-        expect(results).to eq([record_new_high, record_old_low])
+        expect(results).to eq([ record_new_high, record_old_low ])
         expect(results).not_to include(record_no_score_cost)
       end
 
       it 'cost_asc で料金が安い順に並び、未入力レコードは除外されること' do
         results = described_class.sorted_by('cost_asc')
-        expect(results).to eq([record_new_high, record_old_low])
+        expect(results).to eq([ record_new_high, record_old_low ])
         expect(results).not_to include(record_no_score_cost)
       end
 
       it 'cost_desc で料金が高い順に並び、未入力レコードは除外されること' do
         results = described_class.sorted_by('cost_desc')
-        expect(results).to eq([record_old_low, record_new_high])
+        expect(results).to eq([ record_old_low, record_new_high ])
         expect(results).not_to include(record_no_score_cost)
       end
 
       it '指定なし（デフォルト）でプレー日が新しい順に全件並び替わること' do
-        expect(described_class.sorted_by(nil)).to eq([record_new_high, record_no_score_cost, record_old_low])
+        expect(described_class.sorted_by(nil)).to eq([ record_new_high, record_no_score_cost, record_old_low ])
       end
     end
   end
-
 end

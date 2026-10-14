@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
   # 指定アクションの実行前に対象のカルテを取得して @record にセット
   before_action :set_record, only: %i[show edit update destroy]
 
-# カルテ一覧表示（キーワード検索およびソートを適用）
+  # カルテ一覧表示（キーワード検索およびソートを適用）
   def index
     @records = current_user.records
                            .search_by_keyword(params[:keyword])

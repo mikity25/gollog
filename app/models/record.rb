@@ -35,7 +35,7 @@ class Record < ApplicationRecord
   # コールバック：保存前に9Hスコアから18H換算目安を自動計算
   before_save :calculate_converted_score_18h
 
-# ==================== スコープ（検索・ソート） ====================
+  # ==================== スコープ（検索・ソート） ====================
   # ゴルフ場名・同伴者・メモのキーワードあいまい検索
   scope :search_by_keyword, ->(keyword) {
     if keyword.present?
