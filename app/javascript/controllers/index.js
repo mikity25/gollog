@@ -10,5 +10,8 @@ application.register("autocomplete", AutocompleteController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ImagePreviewController from "./image_preview_controller"
+application.register("image-preview", ImagePreviewController)
+
 import RadioToggleController from "./radio_toggle_controller"
 application.register("radio-toggle", RadioToggleController)
