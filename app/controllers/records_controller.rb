@@ -7,6 +7,7 @@ class RecordsController < ApplicationController
   # カルテ一覧表示（キーワード検索およびソートを適用）
   def index
     @records = current_user.records
+                           .includes(:images_attachments)
                            .search_by_keyword(params[:keyword])
                            .sorted_by(params[:sort])
   end
