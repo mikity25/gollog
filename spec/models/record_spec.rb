@@ -78,6 +78,80 @@ RSpec.describe Record, type: :model do
         expect(record.converted_score_18h).to be_nil
       end
     end
+
+    context '画像アップロードのバリデーション' do
+      it '有効な画像（4枚以下・各5MB以内・対応形式）であれば登録できること' do
+        record = build(:record, user: user)
+        record.images.attach(
+          io: StringIO.new('dummy image content'),
+          filename: 'test.jpg',
+          content_type: 'image/jpeg'
+        )
+        expect(record).to be_valid
+      end
+
+      it '対応していないファイル形式（例: text/plain）の場合は登録できないこと' do
+        record = build(:record, user: user)
+        record.images.attach(
+          io: StringIO.new('dummy text content'),
+          filename: 'test.txt',
+          content_type: 'text/plain'
+        )
+        expect(record).to be_invalid
+        expect(record.errors[:images]).to be_present
+      end
+
+      it '1枚あたり5MBを超える容量の場合は登録できないこと' do
+        record = build(:record, user: user)
+        large_data = 'a' * (5.megabytes + 1)
+        record.images.attach(
+          io: StringIO.new(large_data),
+          filename: 'large.jpg',
+          content_type: 'image/jpeg'
+        )
+        expect(record).to be_invalid
+        expect(record.errors[:images]).to be_present
+      end
+
+      it '画像が5枚以上の場合は登録できないこと' do
+        record = build(:record, user: user)
+        5.times do |i|
+          record.images.attach(
+            io: StringIO.new("dummy content #{i}"),
+            filename: "test_#{i}.jpg",
+            content_type: 'image/jpeg'
+          )
+        end
+        expect(record).to be_invalid
+        expect(record.errors[:images]).to be_present
+      end
+
+      it '既存画像から削除予定の枚数を差し引いた実質枚数が4枚以内であれば登録できること' do
+        record = create(:record, user: user)
+        # 4枚添付
+        4.times do |i|
+          record.images.attach(
+            io: StringIO.new("content #{i}"),
+            filename: "image_#{i}.jpg",
+            content_type: 'image/jpeg'
+          )
+        end
+        expect(record.images.count).to eq(4)
+
+        # 2枚を削除予定IDとしてセット
+        purge_targets = record.images.first(2).map(&:id)
+        record.purging_image_ids = purge_targets
+
+        # さらに1枚新規追加（4 - 2 + 1 = 3枚）
+        record.images.attach(
+          io: StringIO.new('new content'),
+          filename: 'new.jpg',
+          content_type: 'image/jpeg'
+        )
+
+        expect(record).to be_valid
+      end
+    end
   end
 
   describe '検索およびソート用スコープのテスト' do

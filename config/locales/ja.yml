@@ -52,6 +52,7 @@ ja:
         bath_memo: "お風呂補足メモ"
         # メモ
         memo: "メモ・振り返り"
+        images: "写真"
     errors:
       models:
         user:

@@ -88,3 +88,6 @@ end
 # 本番エラー監視ツール（Sentry）
 gem "sentry-ruby"
 gem "sentry-rails"
+
+# AWS S3 ストレージ連携用
+gem "aws-sdk-s3", require: false

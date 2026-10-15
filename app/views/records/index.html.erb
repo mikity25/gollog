@@ -138,6 +138,14 @@
                   同伴： <%= record.companion %>
                 </span>
               <% end %>
+
+              <!-- 写真ありバッジ -->
+              <% if record.images.attached? %>
+                <span class="bg-emerald-50 text-emerald-800 border border-emerald-200/70 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 whitespace-nowrap">
+                  <span>📷</span>
+                  <span><%= record.images.size %>枚</span>
+                </span>
+              <% end %>
             </div>
 
             <!-- 満足度（星とバッジ） -->
