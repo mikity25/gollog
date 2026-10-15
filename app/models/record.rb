@@ -2,6 +2,12 @@ class Record < ApplicationRecord
   # アソシエーション
   belongs_to :user
 
+  # 写真（画像）を複数添付できるように関連付け
+  has_many_attached :images
+
+  # 画像のバリデーション（形式・枚数・容量）
+  validate :validate_images
+
   # 複数選択肢（チェックボックス配列）をYAML形式で文字列カラムに自動シリアライズ
   serialize :green_features, type: Array, coder: YAML
   serialize :driving_range, type: Array, coder: YAML
@@ -81,5 +87,27 @@ class Record < ApplicationRecord
   # ハーフ(9H)スコア入力時は2倍した値をセット、未入力時はnil
   def calculate_converted_score_18h
     self.converted_score_18h = score_9h.present? ? score_9h * 2 : nil
+  end
+
+  # 画像の検品メソッド
+  def validate_images
+    return unless images.attached?
+
+    # 1. 枚数制限（最大4枚まで）
+    if images.count > 4
+      errors.add(:images, 'は4枚以内でアップロードしてください')
+    end
+
+    images.each do |image|
+      # 2. ファイル容量制限（1枚あたり最大5MB）
+      if image.blob.byte_size > 5.megabytes
+        errors.add(:images, "は1枚あたり5MB以内のファイルにしてください（#{image.filename}）")
+      end
+
+      # 3. ファイル形式制限（JPEG / PNG / WebP のみ）
+      unless image.blob.content_type.in?(%w[image/jpeg image/png image/webp])
+        errors.add(:images, "はJPEG、PNG、WebP形式のみアップロード可能です（#{image.filename}）")
+      end
+    end
   end
 end

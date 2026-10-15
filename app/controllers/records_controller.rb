@@ -93,7 +93,8 @@ class RecordsController < ApplicationController
       green_features: [],
       driving_range: [],
       bath_features: [],
-      plan_options: []
+      plan_options: [],
+      images: []
     )
   end
 end
