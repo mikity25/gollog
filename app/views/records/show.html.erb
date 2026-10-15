@@ -134,6 +134,26 @@
         </div>
       </div>
 
+      <!-- ==================== ラウンドの写真 ==================== -->
+      <% if @record.images.attached? %>
+        <div class="border-t border-slate-100 pt-5">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <% @record.images.each do |image| %>
+              <div class="group relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 aspect-square shadow-sm hover:shadow-md transition duration-200">
+                <%= link_to url_for(image), target: "_blank", rel: "noopener", class: "block w-full h-full" do %>
+                  <%= image_tag image, class: "w-full h-full object-cover group-hover:scale-105 transition duration-300", alt: "ラウンド写真" %>
+                  <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-200 flex items-center justify-center">
+                    <span class="opacity-0 group-hover:opacity-100 text-white text-[11px] font-bold bg-slate-900/60 px-2.5 py-1 rounded-full backdrop-blur-sm transition duration-200">
+                      拡大表示 ↗
+                    </span>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
       <!-- 料金プラン ＆ 食事 -->
       <div class="border-t border-slate-100 pt-5 space-y-3">
         <h2 class="text-sm font-bold text-slate-800">
