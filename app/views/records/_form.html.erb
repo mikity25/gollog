@@ -464,17 +464,35 @@
     <%# 既存の登録画像がある場合（編集画面時のみ表示してエラー防止） %>
     <% if record.persisted? && record.images.attached? %>
       <div class="mt-4">
-        <p class="text-xs font-semibold text-gray-600 mb-2">現在登録されている写真：</p>
+        <p class="text-xs font-semibold text-gray-600 mb-2">現在登録されている写真（削除したい写真は右上の「×」をクリック）：</p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <% record.images.select(&:persisted?).each do |image| %>
-            <div class="relative rounded-lg overflow-hidden border border-gray-200 aspect-square bg-gray-100">
-              <%= image_tag image, class: "w-full h-full object-cover" %>
+            <div class="relative rounded-lg overflow-hidden border border-gray-200 aspect-square bg-gray-100 group">
+              <%# チェックボックス本体（画面上は隠す） %>
+              <%= check_box_tag "record[purge_image_ids][]", image.id, false, id: "purge_image_#{image.id}", class: "peer hidden" %>
+
+              <%# 写真本体（チェックが入ると半透明になり、赤枠がつく） %>
+              <%= image_tag image, class: "w-full h-full object-cover transition-all duration-200 peer-checked:opacity-30 peer-checked:grayscale" %>
+
+              <%# 削除予定のときに中央に浮かぶバッジ %>
+              <div class="absolute inset-0 hidden peer-checked:flex items-center justify-center pointer-events-none">
+                <span class="bg-rose-600/90 text-white text-xs font-bold px-2 py-1 rounded shadow">削除予定</span>
+              </div>
+
+              <%# 右上の丸い×ボタン（クリックでチェックのON/OFFを切り替える） %>
+              <label for="purge_image_<%= image.id %>" class="absolute top-1.5 right-1.5 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer transition-colors shadow bg-gray-700/70 hover:bg-rose-600 text-white peer-checked:bg-rose-600" title="削除 / 取り消し">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="sr-only">削除切り替え</span>
+              </label>
             </div>
           <% end %>
         </div>
         <p class="text-xs text-amber-600 mt-2">※新しくファイルを選択すると、既存の写真に追加して登録されます。</p>
       </div>
     <% end %>
+
     </div>
   </div>
 

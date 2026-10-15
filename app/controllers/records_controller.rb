@@ -37,11 +37,23 @@ class RecordsController < ApplicationController
 
   # カルテ更新処理
   def update
-    # 新しく送信された画像があれば取り出して既存の画像に追加添付する
+    purge_ids = params.dig(:record, :purge_image_ids)&.compact_blank
+    # バリデーション計算用に削除予定IDをモデルに一時保持させる
+    @record.purging_image_ids = purge_ids if purge_ids.present?
+
+    # 新しく送信された画像があれば取り出して追加添付
     new_images = params.dig(:record, :images)&.compact_blank
     @record.images.attach(new_images) if new_images.present?
 
     if @record.update(record_params_without_images)
+      # 更新に成功した段階で実際に物理削除（purge）する
+      if purge_ids.present?
+        purge_ids.each do |image_id|
+          image = @record.images.find_by(id: image_id)
+          image&.purge
+        end
+      end
+
       redirect_to record_path(@record), notice: "ゴルフカルテを更新しました"
     else
       flash.now[:alert] = "カルテの更新に失敗しました。入力内容を確認してください。"
@@ -102,7 +114,7 @@ class RecordsController < ApplicationController
       images: []
     )
   end
-  
+
   # 画像以外のパラメータ（update時の画像総入れ替えを防ぐため）
   def record_params_without_images
     record_params.except(:images)
