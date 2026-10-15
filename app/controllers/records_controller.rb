@@ -119,5 +119,4 @@ class RecordsController < ApplicationController
   def record_params_without_images
     record_params.except(:images)
   end
-
 end

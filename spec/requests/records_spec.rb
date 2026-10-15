@@ -35,7 +35,7 @@ RSpec.describe 'Records', type: :request do
         patch record_path(record), params: {
           record: {
             golf_course_name: record.golf_course_name,
-            images: [new_image]
+            images: [ new_image ]
           }
         }
 
@@ -46,7 +46,7 @@ RSpec.describe 'Records', type: :request do
         expect(record.reload.images.count).to eq(2)
       end
     end
-    
+
     context '登録済み画像を削除する場合' do
       it '指定された画像が物理削除（purge）されること' do
         # 事前に2枚添付
@@ -65,7 +65,7 @@ RSpec.describe 'Records', type: :request do
         patch record_path(record), params: {
           record: {
             golf_course_name: record.golf_course_name,
-            purge_image_ids: [target_image.id]
+            purge_image_ids: [ target_image.id ]
           }
         }
 
