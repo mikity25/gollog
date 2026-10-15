@@ -37,7 +37,11 @@ class RecordsController < ApplicationController
 
   # カルテ更新処理
   def update
-    if @record.update(record_params)
+    # 新しく送信された画像があれば取り出して既存の画像に追加添付する
+    new_images = params.dig(:record, :images)&.compact_blank
+    @record.images.attach(new_images) if new_images.present?
+
+    if @record.update(record_params_without_images)
       redirect_to record_path(@record), notice: "ゴルフカルテを更新しました"
     else
       flash.now[:alert] = "カルテの更新に失敗しました。入力内容を確認してください。"
@@ -98,4 +102,10 @@ class RecordsController < ApplicationController
       images: []
     )
   end
+  
+  # 画像以外のパラメータ（update時の画像総入れ替えを防ぐため）
+  def record_params_without_images
+    record_params.except(:images)
+  end
+
 end
