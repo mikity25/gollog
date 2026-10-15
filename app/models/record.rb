@@ -95,7 +95,7 @@ class Record < ApplicationRecord
 
     # 1. 枚数制限（最大4枚まで）
     if images.count > 4
-      errors.add(:images, 'は4枚以内でアップロードしてください')
+      errors.add(:images, "は4枚以内でアップロードしてください")
     end
 
     images.each do |image|
