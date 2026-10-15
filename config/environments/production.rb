@@ -21,8 +21,8 @@ Rails.application.configure do
   # 静的アセット（CSS/JS等）のブラウザキャッシュ期間を1年に設定（ダイジェスト付きアセット用）
   config.public_file_server.headers = { "cache-control" => "public, max-age=#{1.year.to_i}" }
 
-  # ファイルアップロードの保存先（ローカルディスク）
-  config.active_storage.service = :local
+  # ファイルアップロードの保存先（本番環境はAWS S3）
+  config.active_storage.service = :amazon
 
   # ----------------------------------------------------
   # SSL / セキュリティ設定
