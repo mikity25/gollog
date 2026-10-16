@@ -4,6 +4,6 @@ class AddOmniauthToUsers < ActiveRecord::Migration[8.1]
     add_column :users, :uid, :string
 
     # 追加（同じGoogleアカウントで2回登録されるのを防ぐバリア）
-    add_index :users, [:provider, :uid], unique: true
+    add_index :users, [ :provider, :uid ], unique: true
   end
 end
