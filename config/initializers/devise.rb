@@ -36,4 +36,11 @@ Devise.setup do |config|
   # Hotwire / Turbo 対応の設定
   config.responder.error_status = :unprocessable_content
   config.responder.redirect_status = :see_other
+
+  # Google認証の追加
+  config.omniauth :google_oauth2,
+                  ENV['GOOGLE_CLIENT_ID'],
+                  ENV['GOOGLE_CLIENT_SECRET'],
+                  skip_jwt: true
+
 end
