@@ -1,8 +1,18 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_many :records, dependent: :destroy
+
+  # Google認証のデータからユーザーを探す・作るメソッド
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = SecureRandom.urlsafe_base64(16) # パスワードはランダムな安全な文字列を自動生成
+      user.name = auth.info.name # Googleアカウントの名前を設定
+    end
+  end
 
   # ゲストユーザー取得・作成メソッド
   def self.guest
