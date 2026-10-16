@@ -55,9 +55,9 @@ Rails.application.configure do
   # キャッシュストアに Solid Cache を使用
   config.cache_store = :solid_cache_store
 
-  # Active Job のバックエンドに Solid Queue を使用
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  # Active Job のキューアダプタを async（非同期・メモリ処理）に変更
+  config.active_job.queue_adapter = :async
+  # config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # ----------------------------------------------------
   # メール送信設定（Action Mailer）
