@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Google") if is_navigational_format?
     else
       session["devise.google_data"] = request.env["omniauth.auth"].except("extra") # パスワード等を除外
-      redirect_new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
     end
   end
 
