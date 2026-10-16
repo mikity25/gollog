@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Deviseのルーティング（ログイン・新規登録など）
   devise_for :users, controllers: {
-  registrations: "users/registrations"
+  omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   # ゲストログイン用
