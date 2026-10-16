@@ -7,10 +7,21 @@ class User < ApplicationRecord
 
   # Google認証のデータからユーザーを探す・作るメソッド
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = SecureRandom.urlsafe_base64(16) # パスワードはランダムな安全な文字列を自動生成
-      user.name = auth.info.name # Googleアカウントの名前を設定
+    user = find_by(provider: auth.provider, uid: auth.uid) || find_by(email: auth.info.email)
+
+    if user
+      # すでに存在する場合は、providerやuidが未設定なら埋めてあげる
+      user.update(provider: auth.provider, uid: auth.uid) if user.provider.blank?
+      user
+    else
+      # 完全に新規の場合
+      create!(
+        email: auth.info.email,
+        password: SecureRandom.urlsafe_base64(16),
+        name: auth.info.name,
+        provider: auth.provider,
+        uid: auth.uid
+      )
     end
   end
 
