@@ -91,3 +91,8 @@ gem "sentry-rails"
 
 # AWS S3 ストレージ連携用
 gem "aws-sdk-s3", require: false
+
+# Google OAuth 認証
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
