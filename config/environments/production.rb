@@ -69,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Resend公式GemにAPIキーをセットして配信方式に指定
-  Resend.api_key = ENV['RESEND_API_KEY']
+  Resend.api_key = ENV["RESEND_API_KEY"]
   config.action_mailer.delivery_method = :resend
 
   # ----------------------------------------------------
