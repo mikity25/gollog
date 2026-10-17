@@ -63,14 +63,24 @@ Rails.application.configure do
   # メール送信設定（Action Mailer）
   # ----------------------------------------------------
   # パスワード再設定等のリンク生成用ホスト名（本番ドメイン）
-  config.action_mailer.default_url_options = { host: "gollog.onrender.com", protocol: "https" }
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
 
-  # メール送信失敗時に500エラーでアプリを落とさない設定
-  config.action_mailer.raise_delivery_errors = false
+  # メール送信失敗時にエラーを検知できるように設定
+  config.action_mailer.raise_delivery_errors = true
 
-  # MVP段階の送信シミュレーション設定（外部SMTP未契約時の接続拒否エラー防止）
-  # ※ 本リリースでSendGrid等を導入する際に delivery_method = :smtp へ移行
-  config.action_mailer.delivery_method = :test
+  # 実際にメールを送信するため delivery_method を :smtp に変更
+  config.action_mailer.delivery_method = :smtp
+
+  # SMTPサーバーへの接続設定（Gmail等を想定）
+  config.action_mailer.smtp_settings = {
+    address:              ENV.fetch("SMTP_ADDRESS", "smtp.gmail.com"),
+    port:                 ENV.fetch("SMTP_PORT", 587).to_i,
+    domain:               ENV.fetch("SMTP_DOMAIN", "gmail.com"),
+    user_name:            ENV["SMTP_USERNAME"],
+    password:             ENV["SMTP_PASSWORD"],
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
 
   # ----------------------------------------------------
   # 国際化（I18n）＆ データベース設定
