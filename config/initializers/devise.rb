@@ -2,7 +2,8 @@
 
 Devise.setup do |config|
   # メール送信元の設定
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  # config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
+  config.mailer_sender = ENV.fetch("MAILER_SENDER", "noreply@gollog.onrender.com")
 
   # ORM（ActiveRecord）のロード
   require "devise/orm/active_record"
