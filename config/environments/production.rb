@@ -59,7 +59,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :async
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
-# ----------------------------------------------------
+  # ----------------------------------------------------
   # メール送信設定（Action Mailer - Resend設定）
   # ----------------------------------------------------
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
