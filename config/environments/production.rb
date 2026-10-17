@@ -60,23 +60,20 @@ Rails.application.configure do
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # ----------------------------------------------------
-  # メール送信設定（Action Mailer - Resend設定）
+  # メール送信設定（Resend 公式Gem / Web API方式）
   # ----------------------------------------------------
-  # パスワード再設定等のリンク生成用ホスト名（本番ドメイン）
+  # パスワード再設定等のメール内に埋め込むリンクのホスト名を設定
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
-  # メール送信失敗時にエラーを検知できるように設定
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
 
-  # Resend用のSMTP設定（ポート465・SSL方式）
-  config.action_mailer.smtp_settings = {
-    address:              ENV.fetch("SMTP_ADDRESS", "smtp.resend.com"),
-    port:                 465,
-    domain:               ENV.fetch("SMTP_DOMAIN", "resend.com"),
-    user_name:            "resend",
-    password:             ENV["RESEND_API_KEY"],
-    authentication:       :plain,
-    ssl:                  true
+  # メール送信失敗時に処理を握りつぶさず、エラーをログやSentryで確実に検知する設定
+  config.action_mailer.raise_delivery_errors = true
+
+  # Resend公式API配信を指定
+  config.action_mailer.delivery_method = :resend
+
+  # Resend公式Gem用の設定
+  config.action_mailer.resend_settings = {
+    api_key: ENV["RESEND_API_KEY"]
   }
 
   # ----------------------------------------------------
