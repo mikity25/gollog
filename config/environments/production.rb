@@ -59,7 +59,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :async
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
-# ----------------------------------------------------
+  # ----------------------------------------------------
   # メール送信設定（Action Mailer）
   # ----------------------------------------------------
   # パスワード再設定等のリンク生成用ホスト名（本番ドメイン）
