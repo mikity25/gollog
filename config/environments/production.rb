@@ -68,15 +68,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 
-  # Resend用のSMTP設定
+  # Resend用のSMTP設定（ポート465・SSL方式）
   config.action_mailer.smtp_settings = {
     address:              ENV.fetch("SMTP_ADDRESS", "smtp.resend.com"),
-    port:                 ENV.fetch("SMTP_PORT", 587).to_i,
+    port:                 465,
     domain:               ENV.fetch("SMTP_DOMAIN", "resend.com"),
     user_name:            "resend",
     password:             ENV["RESEND_API_KEY"],
     authentication:       :plain,
-    enable_starttls_auto: true
+    ssl:                  true
   }
 
   # ----------------------------------------------------
