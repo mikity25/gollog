@@ -59,25 +59,20 @@ Rails.application.configure do
   config.active_job.queue_adapter = :async
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
+# ----------------------------------------------------
+  # メール送信設定（Action Mailer - Resend設定）
   # ----------------------------------------------------
-  # メール送信設定（Action Mailer）
-  # ----------------------------------------------------
-  # パスワード再設定等のリンク生成用ホスト名（本番ドメイン）
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
-
-  # メール送信失敗時にエラーを検知できるように設定
   config.action_mailer.raise_delivery_errors = true
-
-  # 実際にメールを送信するため delivery_method を :smtp に変更
   config.action_mailer.delivery_method = :smtp
 
-  # SMTPサーバーへの接続設定（Gmail等を想定）
+  # Resend用のSMTP設定
   config.action_mailer.smtp_settings = {
-    address:              ENV.fetch("SMTP_ADDRESS", "smtp.gmail.com"),
+    address:              ENV.fetch("SMTP_ADDRESS", "smtp.resend.com"),
     port:                 ENV.fetch("SMTP_PORT", 587).to_i,
-    domain:               ENV.fetch("SMTP_DOMAIN", "gmail.com"),
-    user_name:            ENV["SMTP_USERNAME"],
-    password:             ENV["SMTP_PASSWORD"],
+    domain:               ENV.fetch("SMTP_DOMAIN", "resend.com"),
+    user_name:            "resend",               # ResendのSMTPユーザー名は固定で "resend"
+    password:             ENV["RESEND_API_KEY"],  # Resendで取得したAPIキー
     authentication:       :plain,
     enable_starttls_auto: true
   }
