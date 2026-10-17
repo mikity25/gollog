@@ -68,13 +68,9 @@ Rails.application.configure do
   # メール送信失敗時に処理を握りつぶさず、エラーをログやSentryで確実に検知する設定
   config.action_mailer.raise_delivery_errors = true
 
-  # Resend公式API配信を指定
+  # Resend公式GemにAPIキーをセットして配信方式に指定
+  Resend.api_key = ENV['RESEND_API_KEY']
   config.action_mailer.delivery_method = :resend
-
-  # Resend公式Gem用の設定
-  config.action_mailer.resend_settings = {
-    api_key: ENV["RESEND_API_KEY"]
-  }
 
   # ----------------------------------------------------
   # 国際化（I18n）＆ データベース設定
