@@ -64,7 +64,7 @@ Rails.application.configure do
   # ----------------------------------------------------
   # パスワード再設定等のメール内に埋め込むリンクのホスト名を設定
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
-  
+
   # メール送信失敗時に処理を握りつぶさず、エラーをログやSentryで確実に検知する設定
   config.action_mailer.raise_delivery_errors = true
 
@@ -73,7 +73,7 @@ Rails.application.configure do
 
   # Resend公式Gem用の設定
   config.action_mailer.resend_settings = {
-    api_key: ENV['RESEND_API_KEY']
+    api_key: ENV["RESEND_API_KEY"]
   }
 
   # ----------------------------------------------------

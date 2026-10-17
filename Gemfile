@@ -98,4 +98,4 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
 # メール配信サービス（Resend）
-gem 'resend'
+gem "resend"
