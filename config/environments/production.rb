@@ -62,7 +62,9 @@ Rails.application.configure do
   # ----------------------------------------------------
   # メール送信設定（Action Mailer - Resend設定）
   # ----------------------------------------------------
+  # パスワード再設定等のリンク生成用ホスト名（本番ドメイン）
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "gollog.onrender.com"), protocol: "https" }
+  # メール送信失敗時にエラーを検知できるように設定
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
 
@@ -71,8 +73,8 @@ Rails.application.configure do
     address:              ENV.fetch("SMTP_ADDRESS", "smtp.resend.com"),
     port:                 ENV.fetch("SMTP_PORT", 587).to_i,
     domain:               ENV.fetch("SMTP_DOMAIN", "resend.com"),
-    user_name:            "resend",               # ResendのSMTPユーザー名は固定で "resend"
-    password:             ENV["RESEND_API_KEY"],  # Resendで取得したAPIキー
+    user_name:            "resend",
+    password:             ENV["RESEND_API_KEY"],
     authentication:       :plain,
     enable_starttls_auto: true
   }
