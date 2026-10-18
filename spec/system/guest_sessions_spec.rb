@@ -10,7 +10,7 @@ RSpec.describe "ゲストログイン機能", type: :system do
       visit root_path
 
       # ゲストログインのPOSTフォームのボタンを押す
-      find("form[action='#{guest_sign_in_path}'] button").click
+      first("form[action='#{guest_sign_in_path}'] button").click
 
       expect(page).to have_content("ログアウト")
       expect(page).to have_content("カルテ")
