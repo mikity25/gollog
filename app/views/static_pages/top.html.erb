@@ -2,32 +2,27 @@
 <section style="background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%); text-align: center; padding: clamp(48px, 8vw, 84px) 20px 48px; border-bottom: 1px solid #e2e8f0;">
   <div style="max-width: 760px; margin: 0 auto;">
 
-    <!-- サブキャッチ 1 -->
-    <p style="font-size: clamp(13px, 3.2vw, 15px); color: #2d6a4f; font-weight: 700; letter-spacing: 0.08em; margin: 0 0 10px 0;">
-      自分視点の本音メモで、次のコース選びを最適化
+<!-- メインキャッチ -->
+    <p style="font-size: clamp(14px, 3.5vw, 17px); color: #2d6a4f; font-weight: 700; letter-spacing: 0.06em; margin: 0 0 clamp(24px, 4vw, 36px) 0;">
+      ゴルフ<strong style="color: #1e293b; font-weight: 800;">スコア</strong>管理じゃない、<br class="sm:hidden">ゴルフ<strong style="color: #1e293b; font-weight: 800;">コース</strong>評価カルテ
     </p>
 
-    <!-- サブキャッチ 2 -->
-    <p style="font-size: clamp(16px, 4vw, 22px); color: #334155; font-weight: 700; margin: 0 0 20px 0; letter-spacing: 0.02em;">
-      自分専用 ゴルフ場カルテ
-    </p>
-
-    <!-- メインロゴ（gollogの文字を完全センター配置 ＆ アイコンを左隣に配置） -->
+    <!-- メインロゴ -->
     <div class="relative inline-block mb-7 text-center">
-      <!-- 左隣に寄り添うアイコン（絶対配置で文字の左側に配置） -->
       <svg class="absolute right-full top-1/2 -translate-y-1/2 mr-2 w-10 h-10 sm:w-14 sm:h-14 text-emerald-800 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 18v-15l7 4l-7 4" />
         <path d="M9 17.67c-.62 .36 -1 .82 -1 1.33c0 1.1 1.8 2 4 2s4 -.9 4 -2c0 -.5 -.38 -.97 -1 -1.33" />
       </svg>
-      <!-- 完全中央に配置されるブランド名テキスト -->
       <h1 class="font-['Josefin_Sans',sans-serif] text-5xl sm:text-7xl font-bold text-emerald-800 tracking-wider leading-none m-0">
         gollog
       </h1>
     </div>
 
-    <!-- コンセプトの補足 -->
-    <p style="font-size: clamp(13px, 3.2vw, 14px); color: #64748b; line-height: 1.7; max-width: 540px; margin: 0 auto 32px auto;">
-      他人の口コミではなく、自分が感じたリアルな難易度・食事・設備をボタンタップでサクッと蓄積。誰にも見られない完全プライベートな記録帳です。
+    <!-- コンセプト -->
+<p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-xl mx-auto mb-8">
+      他人のゴルフ場口コミではなく、<br>
+      自分が感じたリアルな満足度・難易度・食事等を<br class="sm:hidden">ボタンタップでサクッと残す。<br>
+      誰の目も気にしない、あなた専用の<strong style="color: #2d6a4f; font-weight: 700;">Gol</strong>fコース<strong style="color: #2d6a4f; font-weight: 700;">Log</strong>アプリ
     </p>
 
     <!-- アクションボタン -->
@@ -36,9 +31,8 @@
         <%= link_to "カルテ一覧を見る", records_path, style: "background-color: #2d6a4f; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25); min-width: 180px;" %>
         <%= link_to "+ 新規カルテ作成", new_record_path, style: "background-color: #ffffff; color: #2d6a4f; border: 2px solid #2d6a4f; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; min-width: 180px;" %>
       <% else %>
-        <!-- ワンクリックゲストログインボタン -->
         <%= button_to guest_sign_in_path, method: :post, style: "background-color: #d97706; color: #ffffff; border: none; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25); min-width: 200px; display: inline-flex; align-items: center; justify-content: center;" do %>
-          <span style="margin-right: 6px;"></span> おためしゲストログイン
+          おためしゲストログイン
         <% end %>
         <%= link_to "無料ではじめる（新規登録）", new_user_registration_path, style: "background-color: #2d6a4f; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; box-shadow: 0 4px 12px rgba(45, 106, 79, 0.25); min-width: 200px;" %>
         <%= link_to "ログイン", new_user_session_path, style: "background-color: #ffffff; color: #2d6a4f; border: 2px solid #2d6a4f; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: bold; display: inline-block; min-width: 120px;" %>
@@ -48,18 +42,20 @@
   </div>
 </section>
 
-<!-- サービスの特徴セクション -->
-<section style="max-width: 980px; margin: 48px auto 64px; padding: 0 20px;">
+<!-- ==================================================== -->
+<!-- 1. 選ばれる3つの理由（ブラッシュアップ版） -->
+<!-- ==================================================== -->
+<section style="max-width: 980px; margin: 48px auto 40px; padding: 0 20px;">
   <div style="text-align: center; margin-bottom: 36px;">
     <h2 style="font-size: clamp(20px, 4.5vw, 24px); font-weight: 700; color: #1e293b; margin: 0 0 6px 0;">
       <span style="font-family: 'Josefin Sans', sans-serif; color: #2d6a4f;">gollog</span> が選ばれる3つの理由
     </h2>
-    <p style="font-size: 13px; color: #64748b; margin: 0;">シンプルだから、ラウンド直後でも迷わず続く</p>
+    <p style="font-size: 13px; color: #64748b; margin: 0;">スコア管理アプリにはない、<br class="sm:hidden">コース選びのための新しい記録習慣</p>
   </div>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
 
-    <!-- 特徴 1: ボタンタップでサクッと記録 -->
+    <!-- 特徴 1 -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 26px 22px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column;">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
         <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">01</span>
@@ -68,13 +64,13 @@
           <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
         </svg>
       </div>
-      <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0;">ボタンタップで即座に記録</h3>
+      <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0;">ボタンタップで即座にコース記録</h3>
       <p style="font-size: 13px; color: #64748b; line-height: 1.65; margin: 0;">
-        疲れたラウンド後でも、満足度・難易度・食事などをボタン中心で記録。長文入力をしなくても自分基準のカルテが完成します。
+        疲れたラウンド後でも、満足度・難易度・食事や設備をボタン中心で直感タップ。<br>面倒な長文入力をしなくても、あなた基準のコース評価カルテが完成します。
       </p>
     </div>
 
-    <!-- 特徴 2: 本音メモ＆非公開 -->
+    <!-- 特徴 2 -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 26px 22px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column;">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
         <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">02</span>
@@ -85,11 +81,11 @@
       </div>
       <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0;">他人の目を気にしない本音メモ</h3>
       <p style="font-size: 13px; color: #64748b; line-height: 1.65; margin: 0;">
-        公開前提の口コミサイトでは書けない「設備の印象」や「注意点」も自由にメモ。自分だけの非公開カルテだから安心です。
+        一般的な口コミサイトでは書きづらい「設備のリアルな印象」や「注意点」も自由にメモ。<br>誰の評価も気にせず、自分の素直な感想をストックできます。
       </p>
     </div>
 
-    <!-- 特徴 3: 次のコース選びを迷わない -->
+    <!-- 特徴 3 -->
     <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 26px 22px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); display: flex; flex-direction: column;">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
         <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">03</span>
@@ -100,9 +96,134 @@
       </div>
       <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0;">次のコース選び・リベンジに直結</h3>
       <p style="font-size: 13px; color: #64748b; line-height: 1.65; margin: 0;">
-        「前回の印象はどうだったか」「スコアはどうだったか」をすぐに見返し、納得感のあるコース選定や友人への推薦に活かせます。
+        「あのコースのお昼美味しかったっけ？」「OBしやすかったかな？」を即座に見返し。<br>納得感のある次のゴルフ場選びや、ゴルフ仲間への推薦にそのまま活かせます。
       </p>
     </div>
+
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 2. 詳しい使い方・画面紹介セクション -->
+<!-- ==================================================== -->
+<section style="background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 64px 20px;">
+  <div style="max-width: 980px; margin: 0 auto;">
+
+    <div style="text-align: center; margin-bottom: 48px;">
+      <span style="font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 12px; border-radius: 9999px;">HOW IT WORKS</span>
+      <h2 style="font-size: clamp(22px, 4.5vw, 28px); font-weight: 800; color: #1e293b; margin: 12px 0 6px 0;">
+        実際の操作イメージ
+      </h2>
+      <p style="font-size: 14px; color: #64748b; margin: 0;">シンプルで、迷わず記録・活用できる3つのステップ</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 48px;">
+
+      <!-- STEP 1 詳細 -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">STEP 01</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">コース検索 ＆ <br class="sm:hidden">ボタンタップで即座に記録</h3>
+        </div>
+        <p style="font-size: 14px; color: #64748b; line-height: 1.7; margin: 0 0 24px 0;">
+          ゴルフ場名は全国の候補から自動補完。<br>難易度やグリーン、お風呂・食事の印象もボタン中心で迷わずサクッと入力できます。
+        </p>
+
+        <!-- PC用画像（画面幅sm以上で表示） -->
+        <div class="hidden sm:grid grid-cols-2 gap-4">
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step1_search01.png", alt: "カルテ作成画面1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step1_search02.png", alt: "カルテ作成画面2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+
+        <!-- スマホ用画像（画面幅sm未満で表示） -->
+        <div class="grid sm:hidden grid-cols-2 gap-2">
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step1_search_sp01.jpg", alt: "カルテ作成スマホ1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step1_search_sp02.jpg", alt: "カルテ作成スマホ2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 詳細 -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">STEP 02</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">他人の目を気にしない<br class="sm:hidden">本音メモ ＆ 写真保存</h3>
+        </div>
+        <p style="font-size: 14px; color: #64748b; line-height: 1.7; margin: 0 0 24px 0;">
+          自分だけの記録だから、「名物定食はイマイチ」「バンカー多い」といった本音や注意点も気兼ねなくストック。<br>思い出の写真やスコアカードもカルテと一緒に残せます。
+        </p>
+
+        <!-- PC用画像 -->
+        <div class="hidden sm:grid grid-cols-2 gap-4">
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step2_memo01.png", alt: "カルテ詳細画面1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step2_memo02.png", alt: "カルテ詳細画面2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+
+        <!-- スマホ用画像 -->
+        <div class="grid sm:hidden grid-cols-2 gap-2">
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step2_memo_sp01.jpg", alt: "カルテ詳細スマホ1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step2_memo_sp02.jpg", alt: "カルテ詳細スマホ2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 詳細 -->
+      <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span style="font-family: 'Josefin Sans', sans-serif; font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 4px;">STEP 03</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">過去カルテ一覧から<br class="sm:hidden">次のコース選び・リベンジに直結</h3>
+        </div>
+        <p style="font-size: 14px; color: #64748b; line-height: 1.7; margin: 0 0 24px 0;">
+          「あのコース、ランチ美味しかったっけ？」「同伴者の評判はどうだった？」を一覧や検索から即座に見返し。<br>納得感のある次のゴルフ場予約や友人への推薦に活用できます。
+        </p>
+
+        <!-- PC用画像 -->
+        <div class="hidden sm:grid grid-cols-2 gap-4">
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step3_list01.png", alt: "カルテ一覧画面1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+            <%= image_tag "step3_list02.png", alt: "カルテ一覧画面2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+
+        <!-- スマホ用画像 -->
+        <div class="grid sm:hidden grid-cols-2 gap-2">
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step3_list_sp01.jpg", alt: "カルテ一覧スマホ1", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+          <div style="border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden;">
+            <%= image_tag "step3_list_sp02.jpg", alt: "カルテ一覧スマホ2", style: "width: 100%; height: auto; display: block;" rescue nil %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 下部：ゲスト体験への誘導CTA -->
+    <% unless user_signed_in? %>
+      <div style="margin-top: 56px; text-align: center; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 36px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+        <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0;">実際のカルテを触って<br class="sm:hidden">体験してみませんか？</h3>
+        <p style="font-size: 13px; color: #64748b; margin: 0 0 20px 0;">登録不要・ワンクリックで<br class="sm:hidden">サンプルカルテ（5件）が入った一覧を<br class="sm:hidden">お試しいただけます。</p>
+        <%= button_to guest_sign_in_path, method: :post, style: "background-color: #d97706; color: #ffffff; border: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25); display: inline-flex; align-items: center;" do %>
+          おためしゲストログインで<br class="sm:hidden">触ってみる
+        <% end %>
+      </div>
+    <% end %>
 
   </div>
 </section>
