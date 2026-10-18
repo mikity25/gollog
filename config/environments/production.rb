@@ -77,7 +77,7 @@ Rails.application.configure do
   # ----------------------------------------------------
   # 翻訳が見つからない場合のフォールバックを有効化
   config.i18n.fallbacks = true
-  
+
 
   # マイグレーション実行後に schema.rb をダンプしない（本番実行の高速化）
   config.active_record.dump_schema_after_migration = false
